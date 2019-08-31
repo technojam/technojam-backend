@@ -1,4 +1,4 @@
-# Technojam-Backend
+# TechnoJam-Backend
 
 To run project on local machine, clone and run following command
 
