@@ -1,4 +1,4 @@
 {
-	"mongoURI": "mongodb+srv://honeycoder96:QrZ2aqfB4Pngo6Ct@technojam-evau9.mongodb.net/admin?retryWrites=true&w=majority/tj",
+	"mongoURI": "mongodb://honeycoder96:honeycoder96@ds229118.mlab.com:29118/heroku_w806x7t4",
 	"secret": "nothing"
 }
