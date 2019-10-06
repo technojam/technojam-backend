@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			td,
+			th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+			}
+
+			tr:nth-child(even) {
+				background-color: #dddddd;
+			}
+		</style>
+	</head>
+	<body>
+		<h2>Available Routes</h2>
+		<table>
+			<tr>
+				<th>TYPE</th>
+				<th>ROUTE</th>
+				<th>INPUT</th>
+				<th>OUTPUT</th>
+				<th>DESCRIPTION</th>
+			</tr>
+			<tr>
+				<td rowspan="2">LOGIN</td>
+				<td>[POST]/api/login</td>
+				<td>{email:'',password:''}</td>
+				<td>{token:''}</td>
+				<th>Accepts email and password and return json token</th>
+			</tr>
+			<tr>
+				<td>[GET]/api/login</td>
+				<td>[header]x-auth-token:''</td>
+				<td>{userModel}</td>
+				<th>Accepts token as header and returns the user data</th>
+			</tr>
+			<tr>
+				<td>REGISTER</td>
+				<td>[POST]/api/register</td>
+				<td>{name:'',email:'',password:''}</td>
+				<td>{token:''}</td>
+				<th>Accepts name,email and password and return json token</th>
+			</tr>
+		</table>
+	</body>
+</html>
