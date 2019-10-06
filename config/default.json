@@ -1,4 +1,4 @@
 {
-	"mongoURI": "mongodb://127.0.0.1:27017/tj",
+	"mongoURI": "mongodb+srv://honeycoder96:QrZ2aqfB4Pngo6Ct@technojam-evau9.mongodb.net/admin?retryWrites=true&w=majority/tj",
 	"secret": "nothing"
 }
