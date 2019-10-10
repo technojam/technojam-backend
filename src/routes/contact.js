@@ -49,4 +49,20 @@ router.delete('/', auth, async (req, res) => {
 	}
 });
 
+// @route    GET api/contact
+// @desc     fetch all submited queries
+// @access   Private: only admins can fetch the query
+router.get('/', auth, async (req, res) => {
+	try {
+		const user = await User.findOne({ uid: req.user.uid }).select('-password');
+		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		else {
+			const dContact = await Contact.find({});
+			if (dContact) res.json(dContact);
+			else res.json({ msg: `Error in fetching` });
+		}
+	} catch (err) {
+		res.status(500).send('Server Error:', err);
+	}
+});
 module.exports = router;
