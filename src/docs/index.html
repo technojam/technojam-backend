@@ -44,6 +44,34 @@
 				<th>Accepts token as header and returns the user data</th>
 			</tr>
 			<tr>
+				<td rowspan="3">CONTACT US</td>
+				<td>[POST]/api/contact</td>
+				<td>{email:'',name:'',contact:'',query:''}</td>
+				<td>{msg:''}</td>
+				<th>
+					Accepts email,contact,name,query and return the error or success
+					message
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/contact</td>
+				<td>[header]x-auth-token:''</td>
+				<td>{msg:''}</td>
+				<th>
+					Accepts token(with admin access) as header and returns error or
+					success message
+				</th>
+			</tr>
+			<tr>
+				<td>[GET]/api/contact</td>
+				<td>[header]x-auth-token:''</td>
+				<td>[contactModel]</td>
+				<th>
+					Accepts token(with admin access) as header and returns array of
+					contactModel
+				</th>
+			</tr>
+			<tr>
 				<td>REGISTER</td>
 				<td>[POST]/api/register</td>
 				<td>{name:'',email:'',password:''}</td>
