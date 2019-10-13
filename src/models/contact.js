@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const contactSchema = new mongoose.Schema({
 	cid: {
-		type: Number,
-		default: new Date().getTime()
+		type: String,
+		default: new Date().getTime().toString()
 	},
 	name: {
 		type: String,
