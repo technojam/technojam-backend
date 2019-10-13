@@ -4,7 +4,7 @@ const auth = require('../utils/auth');
 const sanitize = require('mongo-sanitize');
 const Contact = require('../models/contact');
 const User = require('../models/user');
-
+const uuid = require('uuid/v4');
 // @route    POST api/contact
 // @desc     submit new conact query
 // @access   Public
@@ -13,6 +13,7 @@ router.post('/', async (req, res) => {
 
 	try {
 		let contact1 = await Contact.create({
+			cid: uuid(),
 			name,
 			email,
 			contact,
@@ -23,7 +24,8 @@ router.post('/', async (req, res) => {
 			return res.status(200).json({ msg: 'Query submitted successfully' });
 		} else return res.status(400).json({ msg: 'Could not submit' });
 	} catch (err) {
-		res.status(500).send('Server error:', err);
+		console.log(err);
+		res.status(500).send('Server error:');
 	}
 });
 
