@@ -17,4 +17,5 @@ app.get('/', (req, res) => {
 app.use('/api/login', require('./routes/login'));
 app.use('/api/register', require('./routes/register'));
 app.use('/api/groups', require('./routes/groups'));
+app.use('/api/contact', require('./routes/contact'));
 app.listen(4000, () => console.log('server started at port 4000'));
