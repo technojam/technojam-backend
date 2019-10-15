@@ -57,14 +57,14 @@ router.delete('/', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
 		else {
 			const dContact = await Contact.find({});
 			if (dContact) res.json(dContact);
 			else res.json({ msg: `Error in fetching` });
 		}
 	} catch (err) {
-		res.status(500).send('Server Error:', err);
+		res.status(500).send({'Server Error': err.message});
 	}
 });
 module.exports = router;
