@@ -20,7 +20,7 @@ router.get('/', async(req, res)=> {
 
 // @route    POST api/groups/add
 // @desc     add new group
-// @access   Private: Only admins can add events
+// @access   Private: Only admins can add Groups
 router.post('/add', auth, async(req, res)=> {
     const group = sanitize(req.body);
     try{
@@ -29,9 +29,9 @@ router.post('/add', auth, async(req, res)=> {
         else {
             let groupCreation = await Group.create(group);
             if(groupCreation){
-                return res.status(201).json({ msg: 'Event Added Successfully' });
+                return res.status(201).json({ msg: 'Group Added Successfully' });
             }else{
-                return res.status(400).json({msg: 'Failed: Add Event Operation'});
+                return res.status(400).json({msg: 'Failed: Add Group Operation'});
             }
         }
     }catch(err) {
