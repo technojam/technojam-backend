@@ -20,6 +20,16 @@ router.get('/', auth, async (req, res) => {
 	}
 });
 
+router.put('/', auth, async (req, res) => {
+	try {
+		const user = await User.updateOne({ uid: req.user.uid },sanitize(req.body))
+		res.json({msg:"User updated successfully"});
+	} catch (err) {
+		//console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
+
 // @route    POST api/auth
 // @desc     Authenticate user & get token
 // @access   Public
