@@ -1,4 +1,4 @@
 {
-	"mongoURI": "mongodb://127.0.0.1:27017/tj",
+	"mongoURI": "mongodb://admin:admin123@ds137488.mlab.com:37488/tj",
 	"secret": "nothing"
 }
