@@ -19,4 +19,4 @@ app.use('/api/groups', require('./routes/groups'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/events', require('./routes/events'));
 
-app.listen(4000, () => console.log('server started at port 4000'));
+app.listen(process.env.PORT, 4000, () => console.log('server started at port', process.env.PORT));
