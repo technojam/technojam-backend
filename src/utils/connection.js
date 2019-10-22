@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const url = config.get('mongoURI');
+// const url = config.get('mongoURI');
+const url = process.env.MONGODB_URI;
 const usersSchema = require('../models/user');
 const contactSchema = require('../models/contact');
 
