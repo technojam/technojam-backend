@@ -12,7 +12,7 @@ const User = require('../models/user');
 // @access   Public
 router.post('/', async (req, res) => {
 	const { name, email, password } = sanitize(req.body);
-
+	console.log(name,email,password)
 	try {
 		let user = await User.findOne({ email });
 
@@ -49,7 +49,7 @@ router.post('/', async (req, res) => {
 			}
 		);
 	} catch (err) {
-		//console.error(err.message);
+		console.error(err.message);
 		res.status(500).send('Server error');
 	}
 });

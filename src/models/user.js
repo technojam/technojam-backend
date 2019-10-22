@@ -6,9 +6,13 @@ const usersSchema = new mongoose.Schema({
 		required: true,
 		unique: true
 	},
+	profileImg:{
+		type:String,
+		default:''
+	},
 	role: {
 		type: String,
-		reruired: true,
+		required: true,
 		enum: ['user', 'admin'],
 		default: 'user'
 	},
