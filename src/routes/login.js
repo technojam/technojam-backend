@@ -15,7 +15,7 @@ router.get('/', auth, async (req, res) => {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
 		res.json(user);
 	} catch (err) {
-		//console.error(err.message);
+		console.error(err.message);
 		res.status(500).send('Server Error');
 	}
 });
