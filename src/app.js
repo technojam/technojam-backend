@@ -3,7 +3,7 @@ const app = express();
 const connection = require('./utils/connection');
 const helmet = require('helmet');
 const cors = require('cors');
-
+const PORT = process.env.PORT || 4000;
 connection.connectDB();
 app.use(helmet());
 app.use(cors());
@@ -19,4 +19,4 @@ app.use('/api/groups', require('./routes/groups'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/events', require('./routes/events'));
 
-app.listen(4000, () => console.log('server started at port 4000'));
+app.listen(PORT, () => console.log(`server started at port ${PORT}`));
