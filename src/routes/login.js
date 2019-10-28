@@ -15,6 +15,16 @@ router.get('/', auth, async (req, res) => {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
 		res.json(user);
 	} catch (err) {
+		console.error(err.message);
+		res.status(500).send('Server Error');
+	}
+});
+
+router.put('/', auth, async (req, res) => {
+	try {
+		const user = await User.updateOne({ uid: req.user.uid },sanitize(req.body))
+		res.json({msg:"User updated successfully"});
+	} catch (err) {
 		//console.error(err.message);
 		res.status(500).send('Server Error');
 	}

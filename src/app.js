@@ -3,7 +3,7 @@ const app = express();
 const connection = require('./utils/connection');
 const helmet = require('helmet');
 const cors = require('cors');
-
+const PORT = process.env.PORT || 4000;
 connection.connectDB();
 app.use(helmet());
 app.use(cors());
