@@ -39,4 +39,23 @@ router.post('/add', auth, async(req, res)=> {
     }
 });
 
+// @route    DELETE api/groups/:groupId/delete
+// @desc     delete a single group
+// @access   Private: only admins can delete groups
+router.delete('/:groupId/delete', auth, async (req, res) => {
+	const groupId = req.params.groupId;
+	try {
+		const user = await User.findOne({ uid: req.user.uid }).select('-password');
+		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		else {
+			const deleteGroup = await Group.deleteOne({ uid: groupId });
+            if (deleteGroup.n>0)
+				return res.json({ msg: `Group Deletion Success` });
+			else return res.json({ msg: `Error in deleting` });
+		}
+	} catch (err) {
+		return res.status(500).send('Server Error:', err);
+	}
+});
+
 module.exports = router;

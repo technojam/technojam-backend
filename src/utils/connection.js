@@ -9,6 +9,7 @@ let collection = {};
 collection.connectDB = async () => {
 	try {
 		await mongoose.connect(url, {
+			useUnifiedTopology: true,
 			useNewUrlParser: true,
 			useCreateIndex: true,
 			useFindAndModify: false

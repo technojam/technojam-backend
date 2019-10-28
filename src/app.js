@@ -18,5 +18,6 @@ app.use('/api/register', require('./routes/register'));
 app.use('/api/groups', require('./routes/groups'));
 app.use('/api/contact', require('./routes/contact'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/projects', require('./routes/projects'));
 
 app.listen(PORT, () => console.log(`server started at port ${PORT}`));

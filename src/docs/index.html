@@ -31,6 +31,13 @@
 				<th>DESCRIPTION</th>
 			</tr>
 			<tr>
+				<td>REGISTER</td>
+				<td>[POST]/api/register</td>
+				<td>{name:'',email:'',password:''}</td>
+				<td>{token:''}</td>
+				<th>Accepts name,email and password and return json token</th>
+			</tr>
+			<tr>
 				<td rowspan="2">LOGIN</td>
 				<td>[POST]/api/login</td>
 				<td>{email:'',password:''}</td>
@@ -71,12 +78,81 @@
 					contactModel
 				</th>
 			</tr>
+			<!-- Events -->
 			<tr>
-				<td>REGISTER</td>
-				<td>[POST]/api/register</td>
-				<td>{name:'',email:'',password:''}</td>
-				<td>{token:''}</td>
-				<th>Accepts name,email and password and return json token</th>
+				<td rowspan="6">Events</td>
+				<td>[GET]/api/events</td>
+				<td>{}</td>
+				<td>{List of events}</td>
+				<th>
+					Accepts nothing and returns the list of events or error
+				</th>
+			</tr>
+			<tr>
+				<td>[GET]/api/events/:eventId</td>
+				<td>{}</td>
+				<td>{Details of a specific event}</td>
+				<th>
+					Accepts eventId as a url parameter and returns specific event details or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[GET]/api/events/:eventId/participants</td>
+				<td>{}</td>
+				<td>{[Array of participants of spefific event]}</td>
+				<th>
+					Accepts eventId as url parameter and returns an Array of Participants or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/events/add</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[PUT]/api/events/:eventId/register</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					[User Event Registration] Accepts token as header and returns successful registration or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/events/:eventId/delete</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if event is deleted or error message.
+				</th>
+			</tr>
+			<!-- Groups -->
+			<tr>
+				<td rowspan="3">Groups</td>
+				<td>[GET]/api/groups</td>
+				<td>{}</td>
+				<td>{List of available groups}</td>
+				<th>
+					Accepts nothing and returns list of groups with details or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/groups/add</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if group is added or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/groups/:groupId/delete</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if group is deleted or error message.
+				</th>
 			</tr>
 		</table>
 	</body>
