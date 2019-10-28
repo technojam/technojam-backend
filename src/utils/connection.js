@@ -8,7 +8,7 @@ let collection = {};
 
 collection.connectDB = async () => {
 	try {
-		await mongoose.connect(process.env.MONGOLAB_URI || url, {
+		await mongoose.connect(url, {
 			useUnifiedTopology: true,
 			useNewUrlParser: true,
 			useCreateIndex: true,
