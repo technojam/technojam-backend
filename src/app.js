@@ -20,6 +20,4 @@ app.use('/api/contact', require('./routes/contact'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/projects', require('./routes/projects'));
 
-const PORT = process.env.PORT || 4000;
-
 app.listen(PORT, () => console.log(`server started at port ${PORT}`));
