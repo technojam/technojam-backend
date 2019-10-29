@@ -4,6 +4,7 @@ const sanitize = require('mongo-sanitize');
 const router = express.Router();
 const Events = require('../models/event');
 const User = require('../models/user');
+const uuidv4 = require('uuid/v4');
 
 // @route    GET api/events
 // @desc     fetch all events
@@ -53,8 +54,11 @@ router.get('/:eventId/participants', async (req, res) => {
 // @access   Private: Only admins can add events
 router.post('/add', auth, async (req, res) => {
 	const event = sanitize(req.body);
+	event.eid = uuidv4();
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
+		console.log('user:', user);
+		console.log('uid:', req.user.uid);
 		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
 		else {
 			let eventCreation = await Events.create(event);
