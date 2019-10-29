@@ -40,7 +40,7 @@ const eventSchema = new mongoose.Schema({
 		default: 0
 	},
 	users: {
-		type: [Number],
+		type: [String],
 		default: []
 	}
 });

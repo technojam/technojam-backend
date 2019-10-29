@@ -6,9 +6,9 @@ const usersSchema = new mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	profileImg:{
-		type:String,
-		default:''
+	profileImg: {
+		type: String,
+		default: ''
 	},
 	role: {
 		type: String,
@@ -47,7 +47,7 @@ const usersSchema = new mongoose.Schema({
 		type: Number
 	},
 	registeredEvents: {
-		type: [Number],
+		type: [String],
 		default: []
 	}
 });
