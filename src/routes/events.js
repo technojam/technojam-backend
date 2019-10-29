@@ -39,7 +39,7 @@ router.get('/:eventId', async (req, res) => {
 // @route    GET api/events/:eventId/participants
 // @desc     fetch all participants of an event
 // @access   Public
-router.get('/:eventId/participants', async (req, res) => {
+router.get('/participants/:eventId', async (req, res) => {
 	try {
 		const eventParticipants = await Events.findOne({ eid: req.params.eventId });
 		return res.json(eventParticipants.users);
@@ -108,7 +108,7 @@ router.put('/register/:eventId/', auth, async (req, res) => {
 // @route    DELETE api/events/:eventId/delete
 // @desc     delete a single event
 // @access   Private: only admins can delete events
-router.delete('/:eventId/delete', auth, async (req, res) => {
+router.delete('/delete/:eventId', auth, async (req, res) => {
 	const eventId = req.params.eventId;
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
