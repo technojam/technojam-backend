@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const url = process.env.MONGODB_URI || config.get('mongoURI');
+const url = process.env.MONGODB_URI || config.get('MONGODB_URI');
 const usersSchema = require('../models/user');
 const contactSchema = require('../models/contact');
 
@@ -17,7 +17,7 @@ collection.connectDB = async () => {
 
 		console.log('MongoDB Connected...');
 	} catch (err) {
-		//console.error(err.message);
+		console.error(err.message);
 		// Exit process with failure
 		process.exit(1);
 	}
