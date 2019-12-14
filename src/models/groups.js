@@ -2,22 +2,24 @@ const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
     uid: {
-		type: String,
-		required: true,
-		unique: true
+        type: String,
+        required: true,
+        unique: true
     },
     title: {
         type: String,
         required: true
     },
-    description:{
+    description: {
         type: String,
         required: true
     },
-    communication: {
+    html: {
         type: String
+    },
+    json: {
+        type: Object
     }
 })
 
-
-module.exports = mongoose.model('Groups', groupSchema);
+module.exports = mongoose.model('Templates', groupSchema);
