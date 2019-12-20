@@ -37,7 +37,7 @@ router.delete('/', auth, async (req, res) => {
 	console.log('cids:', cids);
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
 		else {
 			const dContact = await Contact.deleteMany({ cid: { $in: cids } });
 			console.log('dContact', dContact);
