@@ -61,7 +61,7 @@ router.get('/', auth, async (req, res) => {
 		else {
 			const dContact = await Contact.find({});
 			if (dContact) res.json(dContact);
-			else res.status(417).json({ code: 'QUERY_FETCH_ERROR', msg: `Error in fetching` });
+			else res.status(400).json({ code: 'QUERY_FETCH_ERROR', msg: `Error in fetching` });
 		}
 	} catch (err) {
 		res.status(500).send({ 'Server Error': err.message });
