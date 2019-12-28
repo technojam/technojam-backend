@@ -29,9 +29,9 @@ router.post('/add', auth, async (req, res) => {
         else {
             let projectCreation = await Projects.create(project);
             if (projectCreation) {
-                return res.status(201).json({ code: 'PROJECTS_ADD_DONE', msg: 'Project Added Successfully' });
+                return res.status(201).json({ code: 'PROJECT_ADDED', msg: 'Project Added Successfully' });
             } else {
-                return res.status(400).json({ code: 'PROJECTS_ADD_FAILED', msg: 'Failed: Add Project Operation' });
+                return res.status(400).json({ code: 'PROJECT_ADD_FAILED', msg: 'Failed: Add Project Operation' });
             }
         }
     } catch (err) {
@@ -50,8 +50,8 @@ router.delete('/:projectId/delete', auth, async (req, res) => {
         else {
             const deleteProject = await Projects.deleteOne({ pid: projectId });
             if (deleteProject.n > 0)
-                return res.json({ code: 'PROJECTS_DELETE_DONE', msg: `Project Deletion Success` });
-            else return res.json({ code: 'PROJECTS_DELETE_FAILED', msg: `Error in deleting` });
+                return res.json({ code: 'PROJECT_DELETED', msg: `Project Deletion Success` });
+            else return res.json({ code: 'PROJECT_DELETE_FAILED', msg: `Error in deleting` });
         }
     } catch (err) {
         console.log('err:', err);

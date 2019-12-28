@@ -22,7 +22,7 @@ router.post('/', async (req, res) => {
 		let user = await User.findOne({ email });
 
 		if (user) {
-			return res.status(400).json({ code: 'REGISTER_CREATE_REDUNDANT', msg: 'User already exists' });
+			return res.status(400).json({ code: 'USER_ALREADY_REGISTERED', msg: 'User already exists' });
 		}
 		user = new User({
 			uid: new Date().getTime(),
@@ -54,7 +54,7 @@ router.post('/', async (req, res) => {
 		};
 		transporter.sendMail(mailOptions, (err) => {
 			if (err) { return res.status(500).send({ msg: err.message }); }
-			res.status(201).json({ code: 'REGISTER_CREATE_DONE', msg: 'Account Created! Please check your mail to confirm account.' });
+			res.status(201).json({ code: 'USER_CREATED', msg: 'Account Created! Please check your mail to confirm account.' });
 		});
 	} catch (err) {
 		console.error(err.message);

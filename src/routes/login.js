@@ -23,7 +23,7 @@ router.get('/', auth, async (req, res) => {
 router.put('/', auth, async (req, res) => {
 	try {
 		const user = await User.updateOne({ uid: req.user.uid }, sanitize(req.body))
-		res.json({ code: 'LOGIN_USER_UPDATE_DONE', msg: "User updated successfully" });
+		res.json({ code: 'USER_UPDATED', msg: "User updated successfully" });
 	} catch (err) {
 		//console.error(err.message);
 		res.status(500).send('Server Error');
@@ -40,16 +40,16 @@ router.post('/', async (req, res) => {
 		let user = await User.findOne({ email });
 
 		if (!user) {
-			return res.status(401).json({code:'LOGIN_USER_NOT_FOUND', msg: 'Email doesnt exist' });
+			return res.status(401).json({code:'USER_NOT_FOUND', msg: 'Email doesnt exist' });
 		}
 
 		const isMatch = await bcrypt.compare(password, user.password);
 
 		if (!isMatch) {
-			return res.status(401).json({ code: 'LOGIN_USER_BAD_REQUEST', msg: 'Invalid Credentials' });
+			return res.status(401).json({ code: 'LOGIN_BAD_REQUEST', msg: 'Invalid Credentials' });
 		}
 
-		if (!user.isVerified) return res.status(403).send({ code: 'LOGIN_USER_UNAUTHORISED', msg: 'Your account has not been verified.' });
+		if (!user.isVerified) return res.status(403).send({ code: 'USER_UNAUTHORISED', msg: 'Your account has not been verified.' });
 
 		const payload = {
 			user: {
