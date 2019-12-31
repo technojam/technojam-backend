@@ -21,11 +21,11 @@ router.post('/', async (req, res) => {
 		});
 
 		if (contact1) {
-			return res.status(200).json({ msg: 'Query submitted successfully' });
-		} else return res.status(400).json({ msg: 'Could not submit' });
+			return res.status(201).json({ code: 'QUERY_SUBMIT_SUCCESS', msg: 'Query submitted successfully' });
+		} else return res.status(400).json({ code: 'QUERY_SUBMIT_FAILED', msg: 'Could not submit' });
 	} catch (err) {
 		console.log(err);
-		res.status(500).send('Server error:');
+		res.status(500).send('Server error:', err);
 	}
 });
 
@@ -37,13 +37,13 @@ router.delete('/', auth, async (req, res) => {
 	console.log('cids:', cids);
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ code: 'QUERY_DELETE_UNAUTHORISED', msg: 'Not authorized' });
 		else {
 			const dContact = await Contact.deleteMany({ cid: { $in: cids } });
 			console.log('dContact', dContact);
 			if (dContact.n > 0)
-				res.json({ msg: `Deleted ${dContact.n} query successfully` });
-			else res.json({ msg: `Error in deleting` });
+				res.status(202).json({ code: 'QUERY_DELETE_SUCCESS', msg: `Deleted ${dContact.n} query successfully` });
+			else res.status(400).json({ code: 'QUERY_DELETE_FAILED', msg: `Error in deleting` });
 		}
 	} catch (err) {
 		console.log('err:', err);
@@ -57,14 +57,14 @@ router.delete('/', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ code: 'QUERY_FETCH_UNAUTHORISED', msg: 'Not authorized' });
 		else {
 			const dContact = await Contact.find({});
 			if (dContact) res.json(dContact);
-			else res.json({ msg: `Error in fetching` });
+			else res.status(400).json({ code: 'QUERY_FETCH_ERROR', msg: `Error in fetching` });
 		}
 	} catch (err) {
-		res.status(500).send({'Server Error': err.message});
+		res.status(500).send({ 'Server Error': err.message });
 	}
 });
 module.exports = router;

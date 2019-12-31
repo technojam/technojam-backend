@@ -26,7 +26,7 @@ router.get('/:eventId', async (req, res) => {
 	try {
 		const event = await Events.findOne({ eid: req.params.eventId });
 		if (!event) {
-			res.status(404).send('Resource Not Found');
+			res.status(404).json({ code: 'EVENT_NOT_FOUND', msg: 'Resource Not Found' });
 		} else {
 			return res.json(event);
 		}
@@ -59,13 +59,13 @@ router.post('/add', auth, async (req, res) => {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
 		console.log('user:', user);
 		console.log('uid:', req.user.uid);
-		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ code: 'EVENT_ADD_UNAUTHORISED', msg: 'Not authorized' });
 		else {
 			let eventCreation = await Events.create(event);
 			if (eventCreation) {
-				return res.status(201).json({ msg: 'Event Added Successfully' });
+				return res.status(201).json({ code: 'EVENT_ADDED', msg: 'Event Added Successfully' });
 			} else {
-				return res.status(400).json({ msg: 'Failed: Add Event Operation' });
+				return res.status(400).json({ code: 'EVENT_ADD_FAILED', msg: 'Failed: Add Event Operation' });
 			}
 		}
 	} catch (err) {
@@ -84,7 +84,7 @@ router.put('/register/:eventId/', auth, async (req, res) => {
 			'users'
 		);
 		if (registeredUsers.users.includes(userId)) {
-			return res.status(400).json({ msg: 'User Already Registered' });
+			return res.status(400).json({ code: 'EVENT_ALREADY_REGISTERED', msg: 'User Already Registered' });
 		} else {
 			let userRegistration = await Events.updateOne(
 				{ eid: eventId },
@@ -95,9 +95,9 @@ router.put('/register/:eventId/', auth, async (req, res) => {
 				{ $push: { registeredEvents: eventId } }
 			);
 			if (userRegistration && addEventToUserProfile) {
-				return res.status(201).json({ msg: 'Event Registration Completed' });
+				return res.status(201).json({ code: 'EVENT_REGISTERED', msg: 'Event Registration Completed' });
 			} else {
-				return res.status(400).json({ msg: 'Event Registration Failed' });
+				return res.status(400).json({ code: 'EVENT_REGISTER_FAILED', msg: 'Event Registration Failed' });
 			}
 		}
 	} catch (err) {
@@ -112,12 +112,12 @@ router.delete('/delete/:eventId', auth, async (req, res) => {
 	const eventId = req.params.eventId;
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
+		if (user.role != 'admin') res.status(401).json({ code: 'EVENT_DELETE_UNAUTHORISED', msg: 'Not authorized' });
 		else {
 			const deleteEvent = await Events.deleteOne({ eid: eventId });
 			console.log(deleteEvent);
-			if (deleteEvent.n > 0) res.json({ msg: `Event Deletion Success` });
-			else res.json({ msg: `Error in deleting` });
+			if (deleteEvent.n > 0) res.json({ code: 'EVENT_DELETED', msg: `Event Deletion Success` });
+			else res.json({ code: 'EVENT_DELETE_FAILED', msg: `Error in deleting` });
 		}
 	} catch (err) {
 		console.log('err:', err);
