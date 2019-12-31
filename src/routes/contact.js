@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
 		});
 
 		if (contact1) {
-			return res.status(201).json({ code: 'QUERY_SUBMIT_DONE', msg: 'Query submitted successfully' });
+			return res.status(201).json({ code: 'QUERY_SUBMIT_SUCCESS', msg: 'Query submitted successfully' });
 		} else return res.status(400).json({ code: 'QUERY_SUBMIT_FAILED', msg: 'Could not submit' });
 	} catch (err) {
 		console.log(err);
@@ -42,7 +42,7 @@ router.delete('/', auth, async (req, res) => {
 			const dContact = await Contact.deleteMany({ cid: { $in: cids } });
 			console.log('dContact', dContact);
 			if (dContact.n > 0)
-				res.status(202).json({ code: 'QUERY_DELETE_DONE', msg: `Deleted ${dContact.n} query successfully` });
+				res.status(202).json({ code: 'QUERY_DELETE_SUCCESS', msg: `Deleted ${dContact.n} query successfully` });
 			else res.status(400).json({ code: 'QUERY_DELETE_FAILED', msg: `Error in deleting` });
 		}
 	} catch (err) {
