@@ -53,12 +53,14 @@ router.get('/participants/:eventId', async (req, res) => {
 // @desc     add new event
 // @access   Private: Only admins can add events
 router.post('/add', auth, async (req, res) => {
+	console.log("Entered");
+	console.log(req.body);
 	const event = sanitize(req.body);
 	event.eid = uuidv4();
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
-		console.log('user:', user);
-		console.log('uid:', req.user.uid);
+		//console.log('user:', user);
+		//console.log('uid:', req.user.uid);
 		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
 		else {
 			let eventCreation = await Events.create(event);
@@ -68,6 +70,9 @@ router.post('/add', auth, async (req, res) => {
 				return res.status(400).json({ msg: 'Failed: Add Event Operation' });
 			}
 		}
+
+
+
 	} catch (err) {
 		res.status(500).send({ 'Server Error': err.message });
 	}
