@@ -8,9 +8,9 @@ const eventSchema = new mongoose.Schema({
 	},
 	type: {
 		type: String,
-		reruired: true,
-		enum: ['single', 'team'],
-		default: 'single'
+		required: true,
+		//enum: ['Single', 'Team'],
+		default: 'Single'
 	},
 	name: {
 		type: String,
@@ -29,15 +29,24 @@ const eventSchema = new mongoose.Schema({
 		type: String
 	},
 	timing: {
-		type: Date
+		type: String
+	},
+	date:{
+		type:String,
+		required:true
 	},
 	isPaid: {
-		type: Boolean,
-		default: false
+		type: String,
 	},
 	amount: {
 		type: Number,
 		default: 0
+	},
+	teamSize:{
+		type:String
+	},
+	resources:{
+		type:String
 	},
 	users: {
 		type: [String],
@@ -46,3 +55,17 @@ const eventSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Events', eventSchema);
+
+
+
+// type: '',
+// 		name: '',
+// 		description: '',
+// 		longDescription:'',
+// 		capacity:'',
+// 		venue: '',
+// 		timing: '',
+// 		date: '',
+// 		isPaid:'',
+// 		amount:"",
+// 		teamSize: ''
