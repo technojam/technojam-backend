@@ -37,7 +37,6 @@ const eventSchema = new mongoose.Schema({
 	},
 	isPaid: {
 		type: String,
-		default: false
 	},
 	amount: {
 		type: Number,
