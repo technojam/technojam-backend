@@ -5,6 +5,8 @@ const sanitize = require('mongo-sanitize');
 const Contact = require('../models/contact');
 const User = require('../models/user');
 const uuid = require('uuid/v4');
+//const emailjs =require('emailjs-com');
+const axios = require('axios')
 // @route    POST api/contact
 // @desc     submit new conact query
 // @access   Public
@@ -20,7 +22,40 @@ router.post('/', async (req, res) => {
 			query
 		});
 
+		var data = {
+			service_id: 'website_query',
+			template_id: 'template_eayg70e',
+			user_id: 'user_UFdm9NJkel5og9pPNCmrn',
+			template_params: {
+				name:name,
+				email:email,
+				message:query,
+				contact:contact
+			}
+		};
+
+		axios.post('https://api.emailjs.com/api/v1.0/email/send', {
+			service_id: process.env.emailJsServiceId,
+			template_id: 'template_eayg70e',
+			user_id: process.env.emailJsId,
+			template_params: {
+				name:name,
+				email:email,
+				message:query,
+				contact:contact
+			}
+		})
+		.then(res => {
+			console.log(`statusCode: ${res.statusCode}`)
+			//console.log(res)
+		})
+			.catch(error => {
+			console.error(error)
+		})
+
+
 		if (contact1) {
+			console.log(contact1);
 			return res.status(200).json({ msg: 'Query submitted successfully' });
 		} else return res.status(400).json({ msg: 'Could not submit' });
 	} catch (err) {
