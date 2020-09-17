@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const url = "mongodb+srv://admin:admintj@cluster0.veu56.mongodb.net/<tj>?retryWrites=true&w=majority";
+const url = process.env.mongoURI || config.get('mongoURI');
 const usersSchema = require('../models/user');
 const contactSchema = require('../models/contact');
 
