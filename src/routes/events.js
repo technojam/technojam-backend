@@ -11,7 +11,7 @@ const uuidv4 = require('uuid/v4');
 // @access   Public
 router.get('/', async (req, res) => {
 	try {
-		const events = await Events.find({});
+		const events = await Events.find({}).sort({date:1});
 		res.json(events);
 	} catch (err) {
 		console.log(err.message);
@@ -41,8 +41,12 @@ router.get('/:eventId', async (req, res) => {
 // @access   Public
 router.get('/participants/:eventId', async (req, res) => {
 	try {
-		const eventParticipants = await Events.findOne({ eid: req.params.eventId });
-		return res.json(eventParticipants.users);
+		const eventParticipants = (await Events.findOne({ eid: req.params.eventId })).users;
+		var registered_users=[]
+		for(var i=0;i<eventParticipants.length;i++){
+			registered_users.push(await User.findOne({uid:eventParticipants[i]},{name:1,email:1,_id:0}))
+		}
+		return res.json(registered_users);
 	} catch (err) {
 		console.log(err.message);
 		res.status(500).send('Server Error');
