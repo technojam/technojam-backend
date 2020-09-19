@@ -39,7 +39,7 @@ router.get('/:eventId', async (req, res) => {
 // @route    GET api/events/:eventId/participants
 // @desc     fetch all participants of an event
 // @access   Public
-router.get('/participants/:eventId', async (req, res) => {
+router.get('/participants/:eventId',auth, async (req, res) => {
 	try {
 		const eventParticipants = (await Events.findOne({ eid: req.params.eventId })).users;
 		var registered_users=[]
