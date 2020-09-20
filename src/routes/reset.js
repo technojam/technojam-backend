@@ -29,9 +29,7 @@ const User = require('../models/user');
 /*
 expects body
 {
-    token: "token send to users email",
-    email: "users email",
-    password: "new password"
+    email: "users email"
 }
 */
 router.post('/forget', (req, res) => {
