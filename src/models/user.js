@@ -1,5 +1,16 @@
 const mongoose = require('mongoose');
 
+const paassWordReset = new mongoose.Schema({
+	token: {
+		type: String,
+		default: ''
+	},
+	expiry: {
+		type: Date,
+		default: Date.now()+2*86400000
+	}
+})
+
 const usersSchema = new mongoose.Schema({
 	uid: {
 		type: String,
@@ -49,7 +60,8 @@ const usersSchema = new mongoose.Schema({
 	registeredEvents: {
 		type: [String],
 		default: []
-	}
+	},
+	resetInfo: paassWordReset
 });
 
 module.exports = mongoose.model('Users', usersSchema);

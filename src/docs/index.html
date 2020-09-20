@@ -31,6 +31,19 @@
 				<th>DESCRIPTION</th>
 			</tr>
 			<tr>
+				<td rowspan="2">LOGIN</td>
+				<td>[POST]/api/password/forget</td>
+				<td>{email:''}</td>
+				<td>{info:'',msg:'',token:''}</td>
+				<th>Accepts email and send user an email with link and returns reset token</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/password/reset</td>
+				<td>{email:'',token:'',password:''}</td>
+				<td>{user:'',msg:''}</td>
+				<th>Accepts email, token and password and return user and msg after reseting the passwrd</th>
+			</tr>
+			<tr>
 				<td>REGISTER</td>
 				<td>[POST]/api/register</td>
 				<td>{name:'',email:'',password:''}</td>
