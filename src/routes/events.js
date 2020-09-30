@@ -144,7 +144,7 @@ router.put('/update/:eventId',auth,async(req,res)=>{
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
 		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
 		else {
-			let eventUpdation = await Events.update({'eid':eventId},{$set:event})
+			let eventUpdation = await Events.updatOne({'eid':eventId},{$set:event})
 			if (eventUpdation) {
 				return res.status(201).json({ msg: 'Event Updated Successfully' });
 			} else {

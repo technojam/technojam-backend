@@ -139,7 +139,7 @@
 				<td>{msg:' '}</td>
 				<th>
 					Accepts token(with admin access) as header and returns success if
-					event is deleted or error message.
+					event is updated or error message.
 				</th>
 			</tr>
 			<!-- Groups -->
@@ -169,6 +169,44 @@
 				<th>
 					Accepts token(with admin access) as header and returns success if
 					group is deleted or error message.
+				</th>
+			</tr>
+			<!--Team-->
+			<tr>
+				<td rowspan="4">Team</td>
+				<td>[GET]/api/team</td>
+				<td>{}</td>
+				<td>{List of Team Members}</td>
+				<th>
+					Accepts nothing and returns list of team members with details or error
+					message.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/team/add</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					team member is added or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/team/delete/:memberId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					team member is deleted or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[PUT]/api/team/update/:memberId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					team member is updated or error message.
 				</th>
 			</tr>
 		</table>
