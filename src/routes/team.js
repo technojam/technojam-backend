@@ -85,8 +85,8 @@ router.delete('/delete/:memberId', auth, async (req, res) => {
 });
 
 // @route    DELETE api/team/update/:memberId
-// @desc     update a single event
-// @access   Private: only admins can delete events
+// @desc     update a single member
+// @access   Private: only admins can update team deatils
 router.put('/update/:memberId',auth,async(req,res)=>{
 	const mId=req.params.memberId;
 	const member = sanitize(req.body);

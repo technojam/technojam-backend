@@ -20,7 +20,7 @@ const projectSchema = new mongoose.Schema({
     },
     discussion: {
         type: String,
-        required: true
+        required: false
     },
     maintainers: {
         type: String,

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const groupSchema = new mongoose.Schema({
-    gid: {
+const achievementSchema = new mongoose.Schema({
+    aid: {
 		type: String,
 		required: true,
 		unique: true
@@ -12,10 +12,13 @@ const groupSchema = new mongoose.Schema({
     description:{
         type: String,   
     },
-    communication: {
+    date: {
         type: String
+    },
+    image:{
+        type:String
     }
 })
 
 
-module.exports = mongoose.model('Groups', groupSchema);
+module.exports = mongoose.model('Achievements', achievementSchema);

@@ -7,7 +7,6 @@
 				border-collapse: collapse;
 				width: 100%;
 			}
-
 			td,
 			th {
 				border: 1px solid #dddddd;
@@ -207,6 +206,73 @@
 				<th>
 					Accepts token(with admin access) as header and returns success if
 					team member is updated or error message.
+				</th>
+			</tr>
+			<!--Projects-->
+			<tr>
+				<td rowspan="4">Projects</td>
+				<td>[GET]/api/projects</td>
+				<td>{}</td>
+				<td>{List of Projects}</td>
+				<th>
+					Accepts nothing and returns list of projects with details or error
+					message.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/projects/add</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					project is added or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/project/delete/:projectId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					project is deleted or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[PUT]/api/project/update/:proectId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					project is updated or error message.
+				</th>
+			</tr>
+			<!--Achievements-->
+			<tr>
+				<td rowspan="3">Achievements</td>
+				<td>[GET]/api/achievements</td>
+				<td>{}</td>
+				<td>{List of Achievements}</td>
+				<th>
+					Accepts nothing and returns list of achievements with details or error
+					message.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/achievements/add</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					achievement is added or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[DELETE]/api/achievement/delete/:achievementId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					achievement is deleted or error message.
 				</th>
 			</tr>
 		</table>
