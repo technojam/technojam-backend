@@ -2,7 +2,7 @@
 name: ADD_NEW_FEATURE
 about: Suggest an idea for this project
 title: ''
-labels: ''
+labels: Hacktoberfest, enhancement
 assignees: ''
 
 ---
