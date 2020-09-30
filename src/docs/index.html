@@ -80,7 +80,7 @@
 			</tr>
 			<!-- Events -->
 			<tr>
-				<td rowspan="6">Events</td>
+				<td rowspan="7">Events</td>
 				<td>[GET]/api/events</td>
 				<td>{}</td>
 				<td>{List of events}</td>
@@ -126,6 +126,15 @@
 			</tr>
 			<tr>
 				<td>[DELETE]/api/events/delete/:eventId</td>
+				<td>{[header]x-auth-token:' '}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts token(with admin access) as header and returns success if
+					event is deleted or error message.
+				</th>
+			</tr>
+			<tr>
+				<td>[PUT]/api/events/update/:eventId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
 				<th>

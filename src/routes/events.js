@@ -38,7 +38,7 @@ router.get('/:eventId', async (req, res) => {
 
 // @route    GET api/events/:eventId/participants
 // @desc     fetch all participants of an event
-// @access   Public
+// @access   Private:only admins can access
 router.get('/participants/:eventId',auth, async (req, res) => {
 	try {
 		const eventParticipants = (await Events.findOne({ eid: req.params.eventId })).users;
@@ -119,6 +119,7 @@ router.put('/register/:eventId/', auth, async (req, res) => {
 // @access   Private: only admins can delete events
 router.delete('/delete/:eventId', auth, async (req, res) => {
 	const eventId = req.params.eventId;
+	
 	try {
 		const user = await User.findOne({ uid: req.user.uid }).select('-password');
 		if (user.role != 'admin') res.status(404).json({ msg: 'Not authorized' });
@@ -133,5 +134,26 @@ router.delete('/delete/:eventId', auth, async (req, res) => {
 		res.status(500).send('Server Error:', err);
 	}
 });
+// @route    DELETE api/events/update/:eventId
+// @desc     update a single event
+// @access   Private: only admins can delete events
+router.put('/update/:eventId',auth,async(req,res)=>{
+	const eventId=req.params.eventId;
+	const event = sanitize(req.body);
+	try {
+		const user = await User.findOne({ uid: req.user.uid }).select('-password');
+		if (user.role != 'admin') res.status(401).json({ msg: 'Not authorized' });
+		else {
+			let eventUpdation = await Events.update({'eid':eventId},{$set:event})
+			if (eventUpdation) {
+				return res.status(201).json({ msg: 'Event Updated Successfully' });
+			} else {
+				return res.status(400).json({ msg: 'Failed: Update Event Operation' });
+			}
+		}
+	} catch (err) {
+		res.status(500).send({ 'Server Error': err.message });
+	}
+})
 
 module.exports = router;
