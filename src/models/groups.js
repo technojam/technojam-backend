@@ -1,18 +1,16 @@
 const mongoose = require('mongoose');
 
 const groupSchema = new mongoose.Schema({
-    uid: {
+    gid: {
 		type: String,
 		required: true,
 		unique: true
     },
     title: {
         type: String,
-        required: true
     },
     description:{
-        type: String,
-        required: true
+        type: String,   
     },
     communication: {
         type: String
