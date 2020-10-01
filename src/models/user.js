@@ -54,6 +54,14 @@ const usersSchema = new mongoose.Schema({
 		type: Boolean,
 		required: true,
 		default: false
+	},
+	githubUrl:{
+		type:String, 
+		required:false
+	},
+	linkedinUrl:{
+		type:String, 
+		required:false
 	}
 });
 
