@@ -6,8 +6,9 @@ const sanitize = require('mongo-sanitize');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const bcrypt = require('bcryptjs');
 
-// @route    GET api/verification/:token
+// @route    GET api/reset/:token
 // @desc     Initial Check for Token
 // @access   Public
 router.get('/:token', async (req, res)=> {
@@ -18,7 +19,7 @@ router.get('/:token', async (req, res)=> {
         if(!token){
             res.set('Content-Type', 'text/html');
             return res.status(400).send(`
-                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="#">Resend Confirmation Email<a/></h2>
+                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="#">Resend  Email<a/></h2>
                 
             `);
         }
@@ -29,25 +30,20 @@ router.get('/:token', async (req, res)=> {
         <h2 style="color: red;" align="center">User not found! Please <a href="#">Signup Now!<a/></h2>
         `);
 
-        // If Already Verified
-        if (user.isVerified) return res.status(400).send(`
-        <h2 style="color: green;" align="center">User Already Verified Please <a href="https://technojam.tech/">Login Now!<a/></h2>
-        `);
-        else {
-            res.sendFile(path.join(__dirname, '../docs', 'verification.html'));
-        }
+        res.sendFile(path.join(__dirname, '../docs', 'resetPassword.html'));
 	} catch (err) {
 		res.status(401).json({ msg: 'Token is not valid' });
 	}
 });
 
-// @route    PATCH api/verification
+// @route    PATCH api/reset/
 // @desc     User Token Verification and Document Change
 // @access   Public
 router.patch('/', async (req, res)=> {
-    const userToken = sanitize(req.body);
+    const userToken = sanitize(req.body.token);
+    const newPass = sanitize(req.body.password);
     try {
-        const token = await Token.findOne({token: userToken.token})
+        const token = await Token.findOne({token: userToken})
 
         // If Token Not Found in Token Collection
         if(!token){
@@ -63,17 +59,13 @@ router.patch('/', async (req, res)=> {
         <h2 style="color: red;" align="center">User not found! <br /> Please <a href="#">Signup Now!<a/></h2>
         `);
 
-        // If Already Verified
-        if (user.isVerified) return res.status(400).send(`
-        <h2 style="color: green;" align="center">User Already Verified! <br /> Please <a href="#">Login Now!<a/></h2>
-        `);
-
-        // Verification If Not Verified 
-        user.isVerified = true;
+        // Updating Password
+        const salt = await bcrypt.genSalt(10);
+        user.password = await bcrypt.hash(newPass, salt);
         user.save((err)=>{
             if (err) { return res.status(500).send('oops! something went wrong! please contact website maintainers!'); }
             res.send(`
-            <h2 style="color: green;" align="center">User Verified! <br /> Please <a href="#">Login Now!<a/></h2>
+            <h2 style="color: green;" align="center">Password Updated! <br /> Please <a href="https://technojam.tech/">Login Now!<a/></h2>
             `);
         })
 	} catch (err) {
@@ -82,10 +74,10 @@ router.patch('/', async (req, res)=> {
 	}
 });
 
-// @route    POST api/verification/resend
-// @desc     Resend Verification Token Email
+// @route    POST api/reset/send
+// @desc     Send Reset password Token Email
 // @access   Public
-router.post('/resend', async(req, res)=> {
+router.post('/send', async(req, res)=> {
     const email = sanitize(req.body);
     try {
         const user = await User.findOne({email: email.email});
@@ -93,9 +85,7 @@ router.post('/resend', async(req, res)=> {
         // If User Not Found
         if(!user) return res.status(400).send({ msg: 'We were unable to find a user with that email.' });
 
-        // If Already Verified Account
-        if (user.isVerified) return res.status(400).send({ msg: 'This account has already been verified. Please log in.' });
-
+        
         // If Token Document Expired Create New Token Document
         const token = new Token({ _userId: user.uid, token: crypto.randomBytes(16).toString('hex') });
         await token.save();
@@ -109,13 +99,13 @@ router.post('/resend', async(req, res)=> {
         var mailOptions = { 
             from: 'imhim45@outlook.com', 
             to: user.email, 
-            subject: 'TechnoJam Account Verification', 
-            text: 'Team TechnoJam Welcomes You,\n\n' + `Your Verification Code: ${token.token}\n\nPlease verify your account by clicking the link and submitting the verification code: \nhttp:\/\/` + req.headers.host + '\/api\/verification\/' + token.token + '.\n\n'  + 'Thank You,\nTeam TechnoJam'};
+            subject: 'TechnoJam Password Reset', 
+            text: 'Team TechnoJam Welcomes You,\n\n' + `Your Verification Code: ${token.token}\n\nPlease reset your password by clicking the link and submitting the verification code: \nhttp:\/\/` + req.headers.host + '\/api\/reset\/' + token.token + '.\n\n'  + 'Thank You,\nTeam TechnoJam'};
         transporter.sendMail(mailOptions, (err) => {
             if (err) { return res.status(500).send({ msg: err.message }); }
-            res.status(201).send({msg: 'A verification email has been sent to ' + user.email + '.'});
+            res.status(201).send({msg: 'A reset password email has been sent to ' + user.email + '.'});
         });
-        res.send({msg: 'Verification Email Sent Successfully!'});
+        res.send({msg: 'Reset Password Email Sent Successfully!'});
     }catch(err){
         res.send({msg: err.message});
     }
