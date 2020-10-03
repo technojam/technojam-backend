@@ -49,6 +49,11 @@ const usersSchema = new mongoose.Schema({
 	registeredEvents: {
 		type: [String],
 		default: []
+	},
+	isVerified: {
+		type: Boolean,
+		required: true,
+		default: false
 	}
 });
 

@@ -21,5 +21,6 @@ app.use('/api/events', require('./routes/events'));
 app.use('/api/projects', require('./routes/projects'));
 app.use('/api/team', require('./routes/team'));
 app.use('/api/achievements', require('./routes/achievements'));
+app.use('/api/verification',require('./routes/verification'));
 
 app.listen(PORT, () => console.log(`server started at port ${PORT}`));

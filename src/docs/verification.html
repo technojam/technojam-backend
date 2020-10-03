@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Verification</title>
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+        body {
+        background: #456;
+        font-family: 'Open Sans', sans-serif;
+        }
+
+        .verify {
+        width: 400px;
+        margin: 16px auto;
+        font-size: 16px;
+        }
+
+        /* Reset top and bottom margins from certain elements */
+        .verify-header,
+        .verify p {
+        margin-top: 0;
+        margin-bottom: 0;
+        }
+
+        /* The triangle form is achieved by a CSS hack */
+        .verify-triangle {
+        width: 0;
+        margin-right: auto;
+        margin-left: auto;
+        border: 12px solid transparent;
+        border-bottom-color: #28d;
+        }
+
+        .verify-header {
+        background: #28d;
+        padding: 20px;
+        font-size: 1.4em;
+        font-weight: normal;
+        text-align: center;
+        text-transform: uppercase;
+        color: #fff;
+        }
+
+        .verify-container {
+        background: #ebebeb;
+        padding: 12px;
+        }
+
+        /* Every row inside .login-container is defined with p tags */
+        .verify p {
+        padding: 12px;
+        }
+
+        .verify input,
+        #verify-btn {
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        border-width: 1px;
+        border-style: solid;
+        padding: 16px;
+        outline: 0;
+        font-family: inherit;
+        font-size: 0.95em;
+        }
+
+        .verify input[type="text"] {
+        background: #fff;
+        border-color: #bbb;
+        color: #555;
+        }
+
+        /* Text fields' focus effect */
+        .verify input[type="text"]:focus {
+        border-color: #888;
+        }
+
+        #verify-btn {
+        background: #28d;
+        border-color: transparent;
+        color: #fff;
+        cursor: pointer;
+        }
+
+       #verify-btn:hover {
+        background: #17c;
+        }
+
+        /* Buttons' focus effect */
+        #verify-btn:focus {
+        border-color: #05a;
+        }
+    </style>
+</head>
+<body>
+    <div class="verify">
+        <div class="verify-triangle"></div>
+
+        <h2 class="verify-header">Verification</h2>
+
+        <form class="verify-container">
+            <p id="status"></p>
+            <p><input id="token-field" type="text" placeholder="Paste Token Here"></p>
+            <p><button id="verify-btn" onclick="event.preventDefault(); tokenVerification()">Verify</button></p>
+        </form>
+    </div>
+    <script>
+        function tokenVerification() {
+            var data = {};
+            data.token = document.getElementById('token-field').value;
+            jsonData = JSON.stringify(data);
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("PATCH", "/api/verification/", true);
+            xhttp.setRequestHeader('Content-type', 'application/json');
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.responseText);
+                    document.getElementById("status").innerHTML = this.responseText;
+                    var tokenField = document.getElementById("token-field")
+                    tokenField.parentNode.removeChild(tokenField);
+                    var verifyBtn = document.getElementById("verify-btn");
+                    verifyBtn.parentNode.removeChild(verifyBtn);
+                }
+            };
+            xhttp.send(jsonData);
+        }
+    </script>
+</body>
+</html>
