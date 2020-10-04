@@ -30,11 +30,17 @@
 				<th>DESCRIPTION</th>
 			</tr>
 			<tr>
-				<td>REGISTER</td>
+				<td rowspan="2">User</td>
 				<td>[POST]/api/register</td>
 				<td>{name:'',email:'',password:''}</td>
 				<td>{token:''}</td>
 				<th>Accepts name,email and password and return json token</th>
+			</tr>
+			<tr>
+				<td>[GET]/api/register</td>
+				<td>[header]x-auth-token:''</td>
+				<td>{userModel}</td>
+				<th>Accepts token as header and returns the list of registered users</th>
 			</tr>
 			<tr>
 				<td rowspan="2">LOGIN</td>
@@ -273,6 +279,58 @@
 				<th>
 					Accepts token(with admin access) as header and returns success if
 					achievement is deleted or error message.
+				</th>
+			</tr>
+			<!--Verification-->
+			<tr>
+				<td rowspan="3">Verification</td>
+				<td>[GET]/api/verification/:token</td>
+				<td>{token}</td>
+				<td>{}</td>
+				<th>
+					Initial Check for Token
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/verification/</td>
+				<td>{token}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts Token and verify user's account.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/verification/resend</td>
+				<td>{email}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts email and mail verification token to verify account.
+				</th>
+			</tr>
+			<!--Reset Password-->
+			<tr>
+				<td rowspan="3">Reset Password</td>
+				<td>[GET]/api/reset/:token</td>
+				<td>{token}</td>
+				<td>{}</td>
+				<th>
+					Initial Check for Token
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/reset/</td>
+				<td>{token}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts Token and reset user password.
+				</th>
+			</tr>
+			<tr>
+				<td>[POST]/api/reset/send</td>
+				<td>{email}</td>
+				<td>{msg:' '}</td>
+				<th>
+					Accepts email and mail verification token to reset password.
 				</th>
 			</tr>
 		</table>

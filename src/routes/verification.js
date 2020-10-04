@@ -6,7 +6,10 @@ const sanitize = require('mongo-sanitize');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
-
+const config = require('config');
+const mail_user = process.env.user || config.get('user');
+const mail_pass = process.env.pass || config.get('pass');
+const mail_from = process.env.from || config.get('from');
 // @route    GET api/verification/:token
 // @desc     Initial Check for Token
 // @access   Public
@@ -102,12 +105,12 @@ router.post('/resend', async(req, res)=> {
         var transporter = nodemailer.createTransport({ 
             service: '"Mailjet"', 
             auth: { 
-                user: "588003a2b8d598baaa5a03f05fdeeddb", 
-                pass: "d9265a927778dd006c8904d6a127b94c" 
+                user: mail_user, 
+                pass: mail_pass 
             } 
         });
         var mailOptions = { 
-            from: 'imhim45@outlook.com', 
+            from: mail_from,
             to: user.email, 
             subject: 'TechnoJam Account Verification', 
             text: 'Team TechnoJam Welcomes You,\n\n' + `Your Verification Code: ${token.token}\n\nPlease verify your account by clicking the link and submitting the verification code: \nhttp:\/\/` + req.headers.host + '\/api\/verification\/' + token.token + '.\n\n'  + 'Thank You,\nTeam TechnoJam'};

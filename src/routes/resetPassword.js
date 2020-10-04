@@ -7,7 +7,10 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-
+const config = require('config');
+const mail_user = process.env.user || config.get('user');
+const mail_pass = process.env.pass || config.get('pass');
+const mail_from = process.env.from || config.get('from');
 // @route    GET api/reset/:token
 // @desc     Initial Check for Token
 // @access   Public
@@ -92,12 +95,12 @@ router.post('/send', async(req, res)=> {
         var transporter = nodemailer.createTransport({ 
             service: '"Mailjet"', 
             auth: { 
-                user: "588003a2b8d598baaa5a03f05fdeeddb", 
-                pass: "d9265a927778dd006c8904d6a127b94c" 
+                user: mail_user, 
+                pass: mail_pass
             } 
         });
         var mailOptions = { 
-            from: 'imhim45@outlook.com', 
+            from: mail_from,
             to: user.email, 
             subject: 'TechnoJam Password Reset', 
             text: 'Team TechnoJam Welcomes You,\n\n' + `Your Verification Code: ${token.token}\n\nPlease reset your password by clicking the link and submitting the verification code: \nhttp:\/\/` + req.headers.host + '\/api\/reset\/' + token.token + '.\n\n'  + 'Thank You,\nTeam TechnoJam'};
