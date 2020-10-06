@@ -7,10 +7,7 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const config = require('config');
-const mail_user = process.env.user || config.get('user');
-const mail_pass = process.env.pass || config.get('pass');
-const mail_from = process.env.from || config.get('from');
+
 // @route    GET api/reset/:token
 // @desc     Initial Check for Token
 // @access   Public
@@ -22,7 +19,7 @@ router.get('/:token', async (req, res)=> {
         if(!token){
             res.set('Content-Type', 'text/html');
             return res.status(400).send(`
-                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="#">Resend  Email<a/></h2>
+                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="https://technojam.tech/">Try Again<a/></h2>
                 
             `);
         }
@@ -30,7 +27,7 @@ router.get('/:token', async (req, res)=> {
 
         // If User Not Found
         if(!user) return res.status(400).send(`
-        <h2 style="color: red;" align="center">User not found! Please <a href="#">Signup Now!<a/></h2>
+        <h2 style="color: red;" align="center">User not found! Please <a href="https://technojam.tech/">Signup Now!<a/></h2>
         `);
 
         res.sendFile(path.join(__dirname, '../docs', 'resetPassword.html'));
@@ -51,7 +48,7 @@ router.patch('/', async (req, res)=> {
         // If Token Not Found in Token Collection
         if(!token){
             return res.status(400).send(`
-                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="#">Resend Confirmation Email<a/></h2>
+                <h2 style="color: red;" align="center">We were unable to find a valid token! Your token is expired! <a href="https://technojam.tech/">Resend Confirmation Email<a/></h2>
                 
             `);
         }
@@ -59,7 +56,7 @@ router.patch('/', async (req, res)=> {
 
         // If User Not Found
         if(!user) return res.status(400).send(`
-        <h2 style="color: red;" align="center">User not found! <br /> Please <a href="#">Signup Now!<a/></h2>
+        <h2 style="color: red;" align="center">User not found! <br /> Please <a href="https://technojam.tech/">Signup Now!<a/></h2>
         `);
 
         // Updating Password
@@ -95,12 +92,12 @@ router.post('/send', async(req, res)=> {
         var transporter = nodemailer.createTransport({ 
             service: '"Mailjet"', 
             auth: { 
-                user: mail_user, 
-                pass: mail_pass
-            } 
-        });
-        var mailOptions = { 
-            from: mail_from,
+                user: process.env.mailUser||"588003a2b8d598baaa5a03f05fdeeddb", 
+				pass: process.env.mailPass||"d9265a927778dd006c8904d6a127b94c" 
+			} 
+		});
+		var mailOptions = { 
+			from: process.env.mailFrom||'imhim45@outlook.com', 
             to: user.email, 
             subject: 'TechnoJam Password Reset', 
             text: 'Team TechnoJam Welcomes You,\n\n' + `Your Verification Code: ${token.token}\n\nPlease reset your password by clicking the link and submitting the verification code: \nhttp:\/\/` + req.headers.host + '\/api\/reset\/' + token.token + '.\n\n'  + 'Thank You,\nTeam TechnoJam'};
@@ -108,7 +105,7 @@ router.post('/send', async(req, res)=> {
             if (err) { return res.status(500).send({ msg: err.message }); }
             res.status(201).send({msg: 'A reset password email has been sent to ' + user.email + '.'});
         });
-        res.send({msg: 'Reset Password Email Sent Successfully!'});
+        return res.send({msg: 'Reset Password Email Sent Successfully!'});
     }catch(err){
         res.send({msg: err.message});
     }
