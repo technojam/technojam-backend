@@ -49,7 +49,9 @@ router.post('/', async (req, res) => {
 			return res.status(400).json({ msg: 'Invalid Credentials' });
 		}
 		if (!user.isVerified) {
-		return res.status(401).send({ type: 'not-verified', msg: 'Your account has not been verified.' });
+			//return res.status(401).send({ type: 'not-verified', msg: 'Your account has not been verified.' });
+			
+			return res.status(400).json({ msg: 'Your account has not been verified' });
 		}
 		const payload = {
 			user: {
