@@ -7,7 +7,6 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
 const bcrypt = require('bcryptjs');
-const config = require('config');
 
 // @route    GET api/reset/:token
 // @desc     Initial Check for Token

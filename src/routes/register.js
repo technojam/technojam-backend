@@ -4,7 +4,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const crypto=require('crypto')
 const nodemailer= require('nodemailer')
-const config = require('config');
 const sanitize = require('mongo-sanitize');
 const auth =require('../utils/auth')
 const User = require('../models/user');
@@ -56,7 +55,7 @@ router.post('/', async (req, res) => {
 		});
 	} catch (err) {
 		console.error(err.message);
-		res.status(500).send('Server error');
+		res.status(400).json({msg:'Server Error!'});
 	}	
 });
 
@@ -71,7 +70,7 @@ router.get("/", auth, async (req, res) => {
       res.status(200).json(users);
     }
   } catch (err) {
-    res.status(500).send({ "Server Error": err.message });
+	res.status(400).json({msg:'Server Error!'});
   }
 });
 module.exports = router;

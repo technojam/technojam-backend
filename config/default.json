@@ -1,7 +1,4 @@
 {
 	"mongoURI": "mongodb://localhost:27017/tj",
-	"secret": "nothing",
-	"user":"mailjetuserid",
-	"pass":"mailjetpass",
-	"from":"emailid"
+	"secret": "nothing"
 }

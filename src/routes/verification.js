@@ -6,7 +6,6 @@ const sanitize = require('mongo-sanitize');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const path = require('path');
-const config = require('config');
 
 // @route    GET api/verification/:token
 // @desc     Initial Check for Token
@@ -121,7 +120,7 @@ router.post('/resend', async(req, res)=> {
         });
         res.status(400).json({msg: 'Please check your mail to verify account.'});
     }catch(err){
-        res.send({msg: err.message});
+        res.status(400).json({msg:err.message});
     }
 });
 
