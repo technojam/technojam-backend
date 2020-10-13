@@ -1,27 +1,18 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<style>
-			table {
-				font-family: arial, sans-serif;
-				border-collapse: collapse;
-				width: 100%;
-			}
-			td,
-			th {
-				border: 1px solid #dddddd;
-				text-align: left;
-				padding: 8px;
-			}
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="widtd=device-widtd, initial-scale=1.0">
+	<title>Documentation</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
 
-			tr:nth-child(even) {
-				background-color: #dddddd;
-			}
-		</style>
-	</head>
-	<body>
-		<h2>Available Routes</h2>
-		<table>
+	<h2 style="text-align: center; padding: 20px;">Available Routes</h2>
+
+	<div class=" container table-responsive">
+
+		<table class="table table-striped thead-dark" > 
 			<tr>
 				<th>TYPE</th>
 				<th>ROUTE</th>
@@ -34,7 +25,7 @@
 				<td>[POST]/api/register</td>
 				<td>{name:'',email:'',password:''}</td>
 				<td>{token:''}</td>
-				<th>Accepts name,email and password and return json token</th>
+				<td>Accepts name,email and password and return json token</td>
 			</tr>
 			<tr>
 				<td>[GET]/api/register</td>
@@ -47,41 +38,41 @@
 				<td>[POST]/api/login</td>
 				<td>{email:'',password:''}</td>
 				<td>{token:''}</td>
-				<th>Accepts email and password and return json token</th>
+				<td>Accepts email and password and return json token</td>
 			</tr>
 			<tr>
 				<td>[GET]/api/login</td>
 				<td>[header]x-auth-token:''</td>
 				<td>{userModel}</td>
-				<th>Accepts token as header and returns the user data</th>
+				<td>Accepts token as header and returns the user data</td>
 			</tr>
 			<tr>
 				<td rowspan="3">CONTACT US</td>
 				<td>[POST]/api/contact</td>
 				<td>{email:'',name:'',contact:'',query:''}</td>
 				<td>{msg:''}</td>
-				<th>
+				<td>
 					Accepts email,contact,name,query and return the error or success
 					message
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/contact</td>
 				<td>[header]x-auth-token:''</td>
 				<td>{msg:''}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns error or
 					success message
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[GET]/api/contact</td>
 				<td>[header]x-auth-token:''</td>
 				<td>[contactModel]</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns array of
 					contactModel
-				</th>
+				</td>
 			</tr>
 			<!-- Events -->
 			<tr>
@@ -89,63 +80,63 @@
 				<td>[GET]/api/events</td>
 				<td>{}</td>
 				<td>{List of events}</td>
-				<th>
+				<td>
 					Accepts nothing and returns the list of events or error
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[GET]/api/events/:eventId</td>
 				<td>{}</td>
 				<td>{Details of a specific event}</td>
-				<th>
+				<td>
 					Accepts eventId as a url parameter and returns specific event details
 					or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[GET]/api/events/participants/:eventId</td>
 				<td>{}</td>
 				<td>{[Array of participants of spefific event]}</td>
-				<th>
+				<td>
 					Accepts eventId as url parameter and returns an Array of Participants
 					or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[POST]/api/events/add</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success or
 					error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[PUT]/api/events/register/:eventId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					[User Event Registration] Accepts token as header and returns
 					successful registration or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/events/delete/:eventId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					event is deleted or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[PUT]/api/events/update/:eventId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					event is updated or error message.
-				</th>
+				</td>
 			</tr>
 			<!-- Groups -->
 			<tr>
@@ -153,28 +144,28 @@
 				<td>[GET]/api/groups</td>
 				<td>{}</td>
 				<td>{List of available groups}</td>
-				<th>
+				<td>
 					Accepts nothing and returns list of groups with details or error
 					message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[POST]/api/groups/add</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					group is added or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/groups/delete/:groupId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					group is deleted or error message.
-				</th>
+				</td>
 			</tr>
 			<!--Team-->
 			<tr>
@@ -182,37 +173,37 @@
 				<td>[GET]/api/team</td>
 				<td>{}</td>
 				<td>{List of Team Members}</td>
-				<th>
+				<td>
 					Accepts nothing and returns list of team members with details or error
 					message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[POST]/api/team/add</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					team member is added or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/team/delete/:memberId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
-					Accepts token(with admin access) as header and returns success if
+				<td>
+					Accepts token(witd admin access) as header and returns success if
 					team member is deleted or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[PUT]/api/team/update/:memberId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					team member is updated or error message.
-				</th>
+				</td>
 			</tr>
 			<!--Projects-->
 			<tr>
@@ -220,37 +211,37 @@
 				<td>[GET]/api/projects</td>
 				<td>{}</td>
 				<td>{List of Projects}</td>
-				<th>
+				<td>
 					Accepts nothing and returns list of projects with details or error
 					message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[POST]/api/projects/add</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					project is added or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/project/delete/:projectId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					project is deleted or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[PUT]/api/project/update/:proectId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
+				<td>
 					Accepts token(with admin access) as header and returns success if
 					project is updated or error message.
-				</th>
+				</td>
 			</tr>
 			<!--Achievements-->
 			<tr>
@@ -258,28 +249,28 @@
 				<td>[GET]/api/achievements</td>
 				<td>{}</td>
 				<td>{List of Achievements}</td>
-				<th>
+				<td>
 					Accepts nothing and returns list of achievements with details or error
 					message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[POST]/api/achievements/add</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
-					Accepts token(with admin access) as header and returns success if
+				<td>
+					Accepts token(witd admin access) as header and returns success if
 					achievement is added or error message.
-				</th>
+				</td>
 			</tr>
 			<tr>
 				<td>[DELETE]/api/achievement/delete/:achievementId</td>
 				<td>{[header]x-auth-token:' '}</td>
 				<td>{msg:' '}</td>
-				<th>
-					Accepts token(with admin access) as header and returns success if
+				<td>
+					Accepts token(witd admin access) as header and returns success if
 					achievement is deleted or error message.
-				</th>
+				</td>
 			</tr>
 			<!--Verification-->
 			<tr>
@@ -334,5 +325,9 @@
 				</th>
 			</tr>
 		</table>
-	</body>
+
+
+	</div>
+		
+</body>
 </html>
